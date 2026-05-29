@@ -32,7 +32,7 @@ const config: Config = {
       },
       backgroundImage: {
         "hero-glow":
-          "radial-gradient(ellipse 90% 80% at 65% 40%, rgba(240,69,0,0.35) 0%, rgba(240,69,0,0.08) 40%, transparent 70%)",
+          "radial-gradient(ellipse 46% 75% at 33% 42%, rgba(240,69,0,0.20) 0%, rgba(240,69,0,0.06) 45%, transparent 60%)",
         "orange-grad":
           "linear-gradient(135deg, #F04500 0%, #FF6B35 40%, #1A0A00 100%)",
         "contact-grad":
@@ -40,7 +40,7 @@ const config: Config = {
         "purple-grad":
           "linear-gradient(135deg, #3B1270 0%, #5B1DA8 50%, #1A0A2E 100%)",
         "hero-overlay":
-          "linear-gradient(90deg, #0D0D0D 35%, rgba(13,13,13,0.75) 60%, transparent 100%)",
+          "linear-gradient(90deg, #0D0D0D 0%, #0D0D0D 30%, rgba(13,13,13,0.7) 55%, rgba(13,13,13,0.3) 75%, transparent 96%)",
         "card-overlay":
           "linear-gradient(180deg, transparent 35%, rgba(13,13,13,0.95) 100%)",
       },
