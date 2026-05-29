@@ -4,6 +4,7 @@ import BrandsBar from "@/components/sections/02_BrandsBar";
 import BehindTheWork from "@/components/sections/03_BehindTheWork";
 import ProjectsHero from "@/components/sections/04_ProjectsHero";
 import BringingStories from "@/components/sections/05_BringingStories";
+import WritingDesk from "@/components/sections/05b_WritingDesk";
 import CuriousSection from "@/components/sections/06_CuriousSection";
 import ProcessSteps from "@/components/sections/07_ProcessSteps";
 import AboutHero from "@/components/sections/08_AboutHero";
@@ -28,6 +29,7 @@ export default function Home() {
         <BehindTheWork />
         <ProjectsHero />
         <BringingStories />
+        <WritingDesk />
         <CuriousSection />
         <ProcessSteps />
         <AboutHero />

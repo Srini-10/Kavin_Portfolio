@@ -50,7 +50,7 @@ export default function Navbar() {
           href="#home"
           className="font-display text-lg font-bold tracking-tight text-white transition-colors hover:text-accent"
         >
-          Kavinkumar<span className="text-accent">.</span>
+          Kavinkumar S<span className="text-accent">.</span>
         </Link>
 
         {/* Desktop links */}

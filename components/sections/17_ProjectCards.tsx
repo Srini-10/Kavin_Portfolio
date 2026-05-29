@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Img from "@/components/ui/Img";
 import PillButton from "@/components/ui/PillButton";
 import FadeIn from "@/components/ui/FadeIn";
 
@@ -33,7 +33,7 @@ export default function ProjectCards() {
           <FadeIn key={c.title} delay={(i % 2) * 0.12}>
             <div className="group relative aspect-[4/5] overflow-hidden rounded-3xl border border-border">
               {/* Image */}
-              <Image
+              <Img
                 src={c.src}
                 alt={c.title}
                 fill

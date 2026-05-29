@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Img from "@/components/ui/Img";
 import SectionLabel from "@/components/ui/SectionLabel";
 import PillButton from "@/components/ui/PillButton";
 import FadeIn from "@/components/ui/FadeIn";
@@ -18,7 +18,7 @@ export default function AboutMe() {
         {/* Left — tall portrait */}
         <FadeIn direction="right">
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-border">
-            <Image
+            <Img
               src="/images/aboutme-photo.jpg"
               alt="Kavinkumar S"
               fill

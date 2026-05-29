@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Img from "@/components/ui/Img";
 import SectionLabel from "@/components/ui/SectionLabel";
 import FadeIn from "@/components/ui/FadeIn";
 
@@ -9,7 +9,7 @@ export default function ProjectsHero() {
       className="relative w-full overflow-hidden"
     >
       {/* Full-bleed background image */}
-      <Image
+      <Img
         src="/images/projects-hero.jpg"
         alt="Cinematic project still"
         fill

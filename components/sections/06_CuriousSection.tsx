@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Img from "@/components/ui/Img";
 import SectionLabel from "@/components/ui/SectionLabel";
 import PillButton from "@/components/ui/PillButton";
 import FadeIn from "@/components/ui/FadeIn";
@@ -32,16 +32,12 @@ export default function CuriousSection() {
         </div>
       </FadeIn>
 
-      {/* 4-image grid */}
-      <div className="mt-14 grid grid-cols-2 items-start gap-4 md:grid-cols-4">
+      {/* 4-image grid — uniform square cards */}
+      <div className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-4">
         {gridImages.map((img, i) => (
           <FadeIn key={img.src} delay={i * 0.1}>
-            <div
-              className={`group relative overflow-hidden rounded-2xl border border-border ${
-                i === 1 ? "aspect-[3/4]" : "aspect-square"
-              }`}
-            >
-              <Image
+            <div className="group relative aspect-square overflow-hidden rounded-2xl border border-border">
+              <Img
                 src={img.src}
                 alt={img.label}
                 fill

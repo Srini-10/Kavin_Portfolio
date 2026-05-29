@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Img from "@/components/ui/Img";
 import SectionLabel from "@/components/ui/SectionLabel";
 import PillButton from "@/components/ui/PillButton";
 import FadeIn from "@/components/ui/FadeIn";
@@ -6,11 +6,14 @@ import FadeIn from "@/components/ui/FadeIn";
 // Each photo keeps its real aspect ratio. flex-grow is set proportional to the
 // ratio (with basis-0) so every image renders at the SAME height with its
 // natural width — a clean, uncropped "filmstrip" that matches the UI.
+// `position` is a per-photo object-position: these are tall portrait shots
+// dropped into short landscape boxes, so a centered crop would cut off the
+// heads — each is biased toward the top to keep the full face in frame.
 // (Class strings are static literals so Tailwind's JIT scanner emits them.)
 const photos = [
-  { src: "/images/acting-white-shirt.jpg", caption: "Natural", aspect: "aspect-[3/2]", grow: "sm:grow-[1.5]" },
-  { src: "/images/acting-black-tshirt.jpg", caption: "Intense", aspect: "aspect-[16/9]", grow: "sm:grow-[1.78]" },
-  { src: "/images/acting-side-profile.jpg", caption: "Cinematic", aspect: "aspect-[16/9]", grow: "sm:grow-[1.78]" },
+  { src: "/images/acting-white-shirt.jpg", caption: "Natural", aspect: "aspect-[3/2]", grow: "sm:grow-[1.5]", position: "object-[center_15%]" },
+  { src: "/images/acting-black-tshirt.jpg", caption: "Intense", aspect: "aspect-[16/9]", grow: "sm:grow-[1.78]", position: "object-[center_15%]" },
+  { src: "/images/acting-side-profile.jpg", caption: "Cinematic", aspect: "aspect-[16/9]", grow: "sm:grow-[1.78]", position: "object-[center_58%]" },
 ];
 
 export default function BehindTheWork() {
@@ -46,12 +49,12 @@ export default function BehindTheWork() {
               <div
                 className={`group relative w-full overflow-hidden rounded-2xl border border-border ${p.aspect}`}
               >
-                <Image
+                <Img
                   src={p.src}
                   alt={`Kavinkumar S — ${p.caption} acting look`}
                   fill
                   sizes="(max-width: 640px) 100vw, 33vw"
-                  className="object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                  className={`object-cover ${p.position} grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-bg/85 via-transparent to-transparent" />
                 <span className="absolute bottom-4 left-4 font-display text-sm font-semibold uppercase tracking-[0.18em] text-white">

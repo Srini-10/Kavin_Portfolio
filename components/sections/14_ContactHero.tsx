@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Img from "@/components/ui/Img";
 import FadeIn from "@/components/ui/FadeIn";
 
 export default function ContactHero() {
@@ -27,7 +27,7 @@ export default function ContactHero() {
         {/* Right — portrait */}
         <FadeIn delay={0.15} direction="left">
           <div className="relative ml-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-white/20 shadow-2xl">
-            <Image
+            <Img
               src="/images/contact-portrait.jpg"
               alt="Kavinkumar S"
               fill

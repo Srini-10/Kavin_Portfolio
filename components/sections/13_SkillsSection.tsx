@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Img from "@/components/ui/Img";
 import SectionLabel from "@/components/ui/SectionLabel";
 import FadeIn from "@/components/ui/FadeIn";
 
@@ -52,7 +52,7 @@ export default function SkillsSection() {
         {/* Right — atmospheric image */}
         <FadeIn delay={0.15} direction="left">
           <div className="relative h-full min-h-[420px] overflow-hidden rounded-3xl border border-border">
-            <Image
+            <Img
               src="/images/skills-image.jpg"
               alt="On-set lighting setup"
               fill

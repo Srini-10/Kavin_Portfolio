@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Img from "@/components/ui/Img";
 import { motion } from "framer-motion";
 import PillButton from "@/components/ui/PillButton";
 
@@ -22,7 +22,7 @@ export default function HeroSection() {
 
       {/* Portrait — right side, full height */}
       <div className="absolute inset-y-0 right-0 hidden h-full w-[55%] lg:block xl:w-[52%]">
-        <Image
+        <Img
           src="/images/hero-portrait.jpg"
           alt="Kavinkumar S — cinematic portrait"
           fill
