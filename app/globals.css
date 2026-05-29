@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-bg text-text font-body antialiased;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  ::selection {
+    background: #f04500;
+    color: #fff;
+  }
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0d0d0d;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #f04500;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Orange label used before every section heading */
+  .section-label {
+    @apply text-accent text-[0.7rem] font-display font-semibold uppercase tracking-[0.22em];
+  }
+
+  /* Large section heading */
+  .section-heading {
+    @apply font-display font-bold text-white leading-[0.98] tracking-tight;
+    font-size: clamp(2rem, 5vw, 3.9rem);
+  }
+
+  /* Extra large display heading (hero, about, contact) */
+  .display-heading {
+    @apply font-display font-bold text-white;
+    font-size: clamp(2rem, 10vw, 9rem);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+  }
+
+  /* Body / description text */
+  .body-text {
+    @apply font-body text-muted leading-relaxed;
+    font-size: clamp(0.85rem, 1.4vw, 0.975rem);
+  }
+
+  /* Card dark surface */
+  .card-dark {
+    @apply bg-surface border border-border rounded-2xl overflow-hidden
+           hover:border-accent/30 transition-all duration-300;
+  }
+
+  /* Thin horizontal divider */
+  .rule {
+    @apply h-px w-full bg-border;
+  }
+
+  /* Max-width content wrapper */
+  .wrap {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-10;
+  }
+}
