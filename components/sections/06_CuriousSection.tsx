@@ -4,7 +4,7 @@ import PillButton from "@/components/ui/PillButton";
 import FadeIn from "@/components/ui/FadeIn";
 
 const gridImages = [
-  { src: "/images/work-grid-1.jpg", label: "Idaithum Naan Tholaikiren" },
+  { src: "/images/work-grid-1.jpg", label: "Nee Kidaithum Naan Tholaigiraen" },
   { src: "/images/work-grid-2.jpg", label: "On Set" },
   { src: "/images/work-grid-3.jpg", label: "Production" },
   { src: "/images/work-grid-4.jpg", label: "Performance" },

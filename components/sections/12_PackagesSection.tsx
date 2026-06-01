@@ -30,7 +30,6 @@ const packages = [
       "Storyboard support",
     ],
     highlight: true,
-    badge: "Full Stack",
   },
   {
     tier: "Feature / Series",
@@ -54,9 +53,9 @@ export default function PackagesSection() {
           <SectionLabel>Collaboration</SectionLabel>
         </div>
         <h2 className="section-heading mt-5">
-          Simple Packages
+          A Role for Every
           <br />
-          for Every Stage
+          Stage of Production
         </h2>
         <p className="body-text mx-auto mt-5 max-w-lg">
           Kavinkumar brings value at every stage of production — from short
@@ -74,12 +73,7 @@ export default function PackagesSection() {
                   : "border-border bg-surface hover:border-accent/30"
               }`}
             >
-              {p.badge && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-white px-3 py-1 font-display text-[0.65rem] font-bold uppercase tracking-[0.15em] text-bg">
-                  {p.badge}
-                </span>
-              )}
-
+              
               <p
                 className={`font-body text-xs uppercase tracking-[0.18em] ${
                   p.highlight ? "text-white/80" : "text-muted"

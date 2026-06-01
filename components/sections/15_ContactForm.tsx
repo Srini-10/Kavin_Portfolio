@@ -63,13 +63,13 @@ export default function ContactForm() {
               kavinkumars773@gmail.com
             </a>
             <a
-              href="https://instagram.com/kavinkumars773"
+              href="https://www.instagram.com/kavin__003_"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 font-body text-sm text-white/85 transition-colors hover:text-accent"
             >
               <Instagram size={16} className="text-accent" />
-              @kavinkumars773
+              kavin__003_
             </a>
             <span className="flex items-center gap-3 font-body text-sm text-muted">
               <MapPin size={16} className="text-accent" />
