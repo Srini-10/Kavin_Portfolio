@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Input, Textarea } from "@heroui/react";
-import { ArrowRight, Mail, Instagram, MapPin } from "lucide-react";
+import { ArrowRight, Mail, Instagram, MapPin, Check, Loader2 } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import FadeIn from "@/components/ui/FadeIn";
 
@@ -13,27 +13,56 @@ const fieldClasses = {
   label: "text-muted font-body",
 };
 
+// Same-origin API route (app/api/contact/route.ts). Override with an external
+// URL via NEXT_PUBLIC_CONTACT_ENDPOINT only if you host the backend elsewhere.
+const ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT || "/api/contact";
+
+type Status = "idle" | "sending" | "success" | "error";
+
+const EMPTY = { first: "", last: "", email: "", message: "", _honey: "" };
+
 export default function ContactForm() {
-  const [form, setForm] = useState({
-    first: "",
-    last: "",
-    email: "",
-    message: "",
-  });
+  const [form, setForm] = useState(EMPTY);
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
 
-  const set = (key: keyof typeof form) => (value: string) =>
+  const set = (key: keyof typeof form) => (value: string) => {
     setForm((f) => ({ ...f, [key]: value }));
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const subject = encodeURIComponent(
-      `Project enquiry from ${form.first} ${form.last}`.trim()
-    );
-    const body = encodeURIComponent(
-      `${form.message}\n\nFrom: ${form.first} ${form.last}\nEmail: ${form.email}`
-    );
-    window.location.href = `mailto:kavinkumars773@gmail.com?subject=${subject}&body=${body}`;
+    // Clear a lingering success/error banner once the visitor edits again.
+    setStatus((s) => (s === "success" || s === "error" ? "idle" : s));
   };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setStatus("sending");
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data.success) {
+        throw new Error(
+          data.error || "Something went wrong. Please try again."
+        );
+      }
+
+      setStatus("success");
+      setForm(EMPTY);
+    } catch (err) {
+      setStatus("error");
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again."
+      );
+    }
+  };
+
+  const sending = status === "sending";
 
   return (
     <section className="wrap py-24 md:py-32">
@@ -84,6 +113,18 @@ export default function ContactForm() {
             onSubmit={handleSubmit}
             className="rounded-3xl border border-border bg-surface/50 p-6 sm:p-8"
           >
+            {/* Honeypot — hidden from humans; bots that fill it are silently
+                dropped by the backend. */}
+            <input
+              type="text"
+              name="_honey"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              value={form._honey}
+              onChange={(e) => set("_honey")(e.target.value)}
+              className="hidden"
+            />
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <Input
                 label="First Name"
@@ -93,6 +134,7 @@ export default function ContactForm() {
                 value={form.first}
                 onValueChange={set("first")}
                 isRequired
+                isDisabled={sending}
                 classNames={fieldClasses}
               />
               <Input
@@ -102,6 +144,7 @@ export default function ContactForm() {
                 size="md"
                 value={form.last}
                 onValueChange={set("last")}
+                isDisabled={sending}
                 classNames={fieldClasses}
               />
             </div>
@@ -114,6 +157,7 @@ export default function ContactForm() {
                 value={form.email}
                 onValueChange={set("email")}
                 isRequired
+                isDisabled={sending}
                 classNames={fieldClasses}
               />
             </div>
@@ -126,23 +170,50 @@ export default function ContactForm() {
                 value={form.message}
                 onValueChange={set("message")}
                 isRequired
+                isDisabled={sending}
                 classNames={fieldClasses}
               />
             </div>
 
             <button
               type="submit"
-              className="group mt-7 inline-flex items-center gap-2.5 rounded-full border border-border bg-surface2 px-5 py-2.5 font-body text-sm font-medium text-white transition-all duration-300 hover:border-accent/60"
+              disabled={sending}
+              className="group mt-7 inline-flex items-center gap-2.5 rounded-full border border-border bg-surface2 px-5 py-2.5 font-body text-sm font-medium text-white transition-all duration-300 hover:border-accent/60 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Send message
+              {sending ? "Sending..." : "Send message"}
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent transition-colors duration-300 group-hover:bg-accent-h">
-                <ArrowRight
-                  size={12}
-                  strokeWidth={2.5}
-                  className="transition-transform duration-300 group-hover:translate-x-0.5"
-                />
+                {sending ? (
+                  <Loader2 size={12} strokeWidth={2.5} className="animate-spin" />
+                ) : (
+                  <ArrowRight
+                    size={12}
+                    strokeWidth={2.5}
+                    className="transition-transform duration-300 group-hover:translate-x-0.5"
+                  />
+                )}
               </span>
             </button>
+
+            {/* Status messages — the live-region wrappers stay mounted so
+                screen readers reliably announce changes to their contents. */}
+            <div aria-live="polite" role="status">
+              {status === "success" && (
+                <div className="mt-5 flex items-center gap-2.5 rounded-xl border border-accent/30 bg-accent/10 px-4 py-3 font-body text-sm text-white">
+                  <span className="flex h-5 w-5 flex-none items-center justify-center rounded-full bg-accent">
+                    <Check size={12} strokeWidth={3} />
+                  </span>
+                  Thanks! Your message is on its way — I&apos;ll get back to you
+                  soon.
+                </div>
+              )}
+            </div>
+            <div aria-live="assertive" role="alert">
+              {status === "error" && (
+                <div className="mt-5 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 font-body text-sm text-red-300">
+                  {error || "Something went wrong. Please try again."}
+                </div>
+              )}
+            </div>
           </form>
         </FadeIn>
       </div>
